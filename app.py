@@ -1,55 +1,39 @@
 import streamlit as st
 import pandas as pandas
-import ssl
-import certifi
-ssl_context = ssl.create_default_context(cafile=certifi.where())
+import os
+from utils.geocode import geocode_postcode
+from utils.filter import filter_by_specialty, add_distance
+from utils.preprocess import preprocess_hospital_data
 
-from geopy.geocoders import Nominatim
-from geopy.adapters import AioHTTPAdapter
-#from geopy.geocoders.options import default_ssl_context
-from geopy.distance import geodesic
-
-#default_ssl_context.check_hostname = False
-##default_ssl_context.verify_mode = ssl.CERT_NONE
+CLEAN_PATH = "data/hospitals_clean.csv"
+RAW_PATH = "data/hospitals_london.csv"
 
 @st.cache_data
-def load_hospitals():
-    return pandas.read_csv("data/hospitals.csv")
+def load_data():
+    if not os.path.exists(CLEAN_PATH):
+        st.warning("Preprocessing data...")
+        df = preprocess_hospital_data(RAW_PATH, CLEAN_PATH, show_progress=True)
+        st.success("Data preprocessed.")
+        return df
+    return pandas.read_csv(CLEAN_PATH)
 
-@st.cache_data
-def geocode_postcode(pc):
-    geolocator = Nominatim(user_agent="hospital-finder")
-    location = geolocator.geocode(pc)
-    if location:
-        return (location.latitude, location.longitude)
-    else:
-        return None
-try:
-    df= load_hospitals()
-except Exception as e:
-    st.error(f"Failed to load hospitals: {str(e)}")
+df = load_data()
 
 st.set_page_config(page_title="Hospital Finder", page_icon=":hospital:")
 st.title(":hospital: Hospital Finder")
 
 postcode = st.text_input("Enter your postcode", placeholder="eg. SW1A 1AA")
 
-specialties = sorted(df['specialty'].dropna().unique())
-specialty = st.selectbox("Select a specialty", specialties)
+all_specialties = sorted({s.strip() for x in df['Specialties'].dropna() for s in x.split(",")})
+specialty = st.selectbox("Select a specialty", all_specialties)
 
-if st.button("Find Hospitals"):
-    if not postcode or not specialty:
-        st.error("Please enter both postcode and specialty.")
+if st.button("Find Hospitals") and postcode and specialty:
+    coords = geocode_postcode(postcode)
+    if coords:
+        filtered = filter_by_specialty(df, specialty)
+        results = add_distance(filtered, coords)
+        st.success(f"Found {len(results)} hospitals offering {specialty}.")
+        st.dataframe(results[['Hospital Name', 'Postcode', 'distance_km']])
     else:
-        coords = geocode_postcode(postcode)
-
-        if not coords:
-            st.error("Failed to geocode postcode.")
-        else:
-            st.info(f"Your location: {coords}")
-
-            filtered = df[df['specialty'] == specialty].copy()
-            filtered['distance_km'] = filtered.apply(lambda row: geodesic(coords, (row['lat'], row['lon'])).km, axis=1)
-            results = filtered.sort_values('distance_km').reset_index(drop=True)
-            st.success(f"Found {len(results)} hospital(s) offering {specialty}.")
-            st.dataframe(results[['name', 'postcode', 'distance_km']])
+        st.error("Failed to geocode postcode.")
+    
