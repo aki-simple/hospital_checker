@@ -3,6 +3,17 @@ import time
 from utils.geocode import geocode_postcode
 
 def preprocess_hospital_data(raw_path,output_path, show_progress = False):
+    """
+    Preprocesses the hospital data by geocoding the postcodes and adding distance columns.
+
+    Parameters:
+        raw_path (str): Path to the raw hospital data CSV file.
+        output_path (str): Path to save the preprocessed hospital data CSV file.
+        show_progress (bool): Whether to show progress during geocoding.
+
+    Returns:
+        pd.DataFrame: The preprocessed hospital data DataFrame.
+    """
     df = pd.read_csv(raw_path)
     df["lat"],df["lon"] = None, None
 

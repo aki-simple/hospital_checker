@@ -1,6 +1,15 @@
 import requests
 
 def geocode_postcode(postcode):
+    """
+    Geocodes a postcode to latitude and longitude using the Postcodes.io API.
+
+    Parameters:
+        postcode (str): The postcode to geocode.
+
+    Returns:
+        tuple: A tuple containing the latitude and longitude of the postcode, or None if geocoding fails.
+    """
     postcode= postcode.replace(" ","")
     url = f"https://api.postcodes.io/postcodes/{postcode.strip()}"
     try:

@@ -9,6 +9,12 @@ from utils.preprocess import preprocess_hospital_data
 
 @st.cache_data
 def load_data():
+    """
+    Loads the hospital data from a CSV file, preprocessing it if necessary.
+
+    Returns:
+        pd.DataFrame: The preprocessed hospital data DataFrame.
+    """
     if not os.path.exists(CLEAN_PATH):
         st.warning("Preprocessing data...")
         df = preprocess_hospital_data(RAW_PATH, CLEAN_PATH, show_progress=True)
@@ -17,6 +23,9 @@ def load_data():
     return pandas.read_csv(CLEAN_PATH)
 
 def run_hospital_finder():
+    """
+    Runs the hospital finder app.
+    """
     st.set_page_config(page_title="Hospital Finder", page_icon=":hospital:")
 
     df = load_data()
