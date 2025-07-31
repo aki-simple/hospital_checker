@@ -113,7 +113,32 @@ def run_health_metrics():
             weight_kg = st.number_input("Weight (kg)", min_value=0, max_value=200, value=0)
             activity_level = st.selectbox("Activity Level", ["Select", "Sedentary", "Moderate", "Active"])
             st.markdown("</div>", unsafe_allow_html=True)
-            submitted = st.form_submit_button("Calculate", help="Calculate your health metrics")
+            # Custom styled Calculate button
+            st.markdown("""
+                <style>
+                .cognizant-btn-custom {
+                    background: linear-gradient(90deg, #0050b3 60%, #1890ff 100%);
+                    color: #fff !important;
+                    border: none;
+                    border-radius: 8px;
+                    padding: 0.9rem 1.5rem;
+                    font-weight: bold;
+                    font-size: 1.15rem;
+                    margin-top: 0.7rem;
+                    width: 100%;
+                    box-shadow: 0 2px 8px rgba(0,80,179,0.10);
+                    transition: background 0.2s;
+                }
+                .cognizant-btn-custom:hover {
+                    background: linear-gradient(90deg, #1890ff 60%, #0050b3 100%);
+                }
+                </style>
+                <button class='cognizant-btn-custom' type='submit'>🚀 Calculate</button>
+            """, unsafe_allow_html=True)
+            submitted = False  # We'll use the form's submit event below
+
+        # Streamlit form_submit_button must still be called for form logic
+        submitted = st.form_submit_button(" ", help="Calculate your health metrics")
 
         if submitted:
             if gender == "Select" or activity_level == "Select" or age == 0 or height_cm == 0 or weight_kg == 0:
@@ -124,8 +149,8 @@ def run_health_metrics():
             rmr = calculate_rmr(gender, weight_kg, height_cm, age)
 
             multiplier = {
-                "Sedentary": 1.1,
-                "Moderate": 1.3,
+                "Sedentary": 1.2,
+                "Moderate": 1.35,
                 "Active": 1.5
             }[activity_level]
 
@@ -134,25 +159,35 @@ def run_health_metrics():
             reduction = adjusted_rmr - 350
             gain = adjusted_rmr + 350
 
-            st.subheader("Results")
-            st.metric("BMI", bmi, bmi_category)
-            st.metric("Resting Metabolic RateMR", f"{rmr} kcal/day")
-            st.metric("Adjusted for Activity Level", f"{adjusted_rmr} kcal/day")
-            
-            st.markdown("### 📊 Suggested Daily Calorie Intake")
+            st.markdown("""
+                <div class='cognizant-card' style='background:#fff; border:1.5px solid #1890ff; margin-top:1.5rem;'>
+                    <h4 style='color:#0050b3;margin-bottom:0.8em;'>Results</h4>
+            """, unsafe_allow_html=True)
+            st.markdown(f"<div class='cognizant-metric'>BMI: <b>{bmi}</b> ({bmi_category})</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='cognizant-metric'>Resting Metabolic Rate (RMR): <b>{rmr} kcal/day</b></div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='cognizant-metric'>Adjusted for Activity Level: <b>{adjusted_rmr} kcal/day</b></div>", unsafe_allow_html=True)
+            st.markdown("<hr style='margin:1em 0 0.7em 0;border-top:1.5px solid #e6f7ff;'>", unsafe_allow_html=True)
+            st.markdown("<b>📊 Suggested Daily Calorie Intake</b>")
             if bmi_category == "Sub Optimal":
-                st.write(f" **Weight Gain**: **{gain} kcal/day** - approx. 3lbs/month")
+                st.success(f"Weight Gain: **{gain} kcal/day** - approx. 3lbs/month")
             elif bmi_category == "Optimal":
-                st.write(f" **Weight Loss**: **{reduction} kcal/day** - approx. 3lbs/month")
-                st.write(f" **Maintenance**: **{maintence} kcal/day**")
-                st.write(f" **Weight Gain**: **{gain} kcal/day** - approx. 3lbs/month")
+                st.info(f"Weight Loss: **{reduction} kcal/day** - approx. 3lbs/month")
+                st.info(f"Maintenance: **{maintence} kcal/day**")
+                st.success(f"Weight Gain: **{gain} kcal/day** - approx. 3lbs/month")
             else:
-                st.write(f" **Weight Loss**: **{reduction} kcal/day** - approx. 3lbs/month")
+                st.warning(f"Weight Loss: **{reduction} kcal/day** - approx. 3lbs/month")
+            st.markdown("</div>", unsafe_allow_html=True)
     
     with right_col:
-        st.markdown("### NHS Resources")
-        st.markdown("[🥚 Protein Intake](https://www.plymouthhospitals.nhs.uk/display-pil/pil-a-guide-to-increasing-your-protein-intake-8276/)")
-        st.markdown("[🥗 5 a day](https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/)")
-        st.markdown("[🥬 Fibre Intake](https://www.nhs.uk/live-well/eat-well/how-to-get-more-fibre-into-your-diet/)")
-        st.markdown("[🧴 Obesity treatment](https://www.nhs.uk/conditions/obesity/treatment/)")
-        st.markdown("[💊 Weight management injections](https://www.england.nhs.uk/ourwork/prevention/obesity/medicines-for-obesity/weight-management-injections/)")
+        st.markdown("""
+            <div class='cognizant-card' style='background:#f4faff; border:1.5px solid #0050b3;'>
+                <h4 style='color:#0050b3;'>NHS Resources</h4>
+                <ul style='padding-left:1.1em;font-size:1.04em;'>
+                    <li>🥚 <a href='https://www.plymouthhospitals.nhs.uk/display-pil/pil-a-guide-to-increasing-your-protein-intake-8276/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Protein Intake</a></li>
+                    <li>🥗 <a href='https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/' target='_blank' style='color:#0050b3;text-decoration:underline;'>5 a day</a></li>
+                    <li>🥬 <a href='https://www.nhs.uk/live-well/eat-well/how-to-get-more-fibre-into-your-diet/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Fibre Intake</a></li>
+                    <li>🧴 <a href='https://www.nhs.uk/conditions/obesity/treatment/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Obesity treatment</a></li>
+                    <li>💊 <a href='https://www.england.nhs.uk/ourwork/prevention/obesity/medicines-for-obesity/weight-management-injections/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Weight management injections</a></li>
+                </ul>
+            </div>
+        """, unsafe_allow_html=True)
