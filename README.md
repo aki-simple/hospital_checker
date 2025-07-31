@@ -1,6 +1,6 @@
-# 🏥 Hospital Checker
+# 🏥 Hospital Checker by TEAM HYPERSCALER
 
-A modern, interactive health and hospital information platform built with Streamlit. Easily check your health metrics, find nearby hospitals, and access NHS resources—all with a beautiful Cognizant-inspired UI.
+A modern, interactive health and hospital information platform. Easily check your health metrics, find nearby hospitals, and access NHS resources
 
 ---
 
