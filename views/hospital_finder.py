@@ -94,11 +94,16 @@ def run_hospital_finder():
             if coords:
                 filtered = filter_by_specialty(df, specialty)
                 results = add_distance(filtered, coords)
-                st.markdown(
+                # Filter for hospitals within 100 km
+                within_100km = results[results['distance_km'] <= 100]
+                if within_100km.empty:
+                    st.warning("Unable to find any hospital in a 100 km radius.")
+                else:
+                    st.markdown(
                     f"<div class='cognizant-card'><span style='color:#0050b3;font-weight:bold;'>Found {len(results)} hospitals offering {specialty}.</span></div>",
                     unsafe_allow_html=True
                 )
-                st.dataframe(results[['Hospital Name', 'Phone', 'Postcode', 'distance_km']], use_container_width=True, hide_index=True)
+                    st.dataframe(within_100km[['Hospital Name', 'Phone', 'Postcode', 'distance_km']], use_container_width=True, hide_index=True)
                 show_resource = True
             else:
                 st.error("Failed to geocode postcode.")
