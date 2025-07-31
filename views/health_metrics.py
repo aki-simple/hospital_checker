@@ -131,8 +131,8 @@ def run_health_metrics():
 
             adjusted_rmr = round(rmr * multiplier)
             maintence = adjusted_rmr
-            reduction = adjusted_rmr - 500
-            gain = adjusted_rmr + 500
+            reduction = adjusted_rmr - 350
+            gain = adjusted_rmr + 350
 
             st.subheader("Results")
             st.metric("BMI", bmi, bmi_category)
