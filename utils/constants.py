@@ -9,7 +9,5 @@ GEOCODE_TIMEOUT = 5
 DISTANCE_DECIMALS = 2
 
 NHS_RESOURCES ={
-    "Cardiology": "https://www.nhs.uk/conditions/cardiovascular-disease/",
-    "Neurology": "https://www.nhs.uk/conditions/brain-and-spine-conditions/",
-    "Orthopaedics": "https://www.nhs.uk/conditions/joint-problems/",
+    "Cardiology": "https://www.nhs.uk/conditions/cardiovascular-disease/"
 }
