@@ -49,29 +49,80 @@ def calculate_rmr(gender,weight_kg,height_cm,age):
 
 def run_health_metrics():
     """
-    Run the health metrics calculator app.
+    Run the health metrics calculator app with Cognizant branding and a modern layout.
     """
-    st.title("Health Metrics Calculator")
+    st.markdown(
+        """
+        <style>
+        .cognizant-banner {
+            background: linear-gradient(90deg, #0050b3 60%, #1890ff 100%);
+            color: #fff;
+            padding: 2rem 1rem 1rem 1rem;
+            border-radius: 18px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 16px rgba(0,80,179,0.07);
+        }
+        .cognizant-card {
+            background: #e6f7ff;
+            border-radius: 14px;
+            padding: 1.5rem 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,80,179,0.04);
+            margin-bottom: 1.2rem;
+        }
+        .cognizant-metric {
+            background: #f4faff;
+            border-radius: 10px;
+            padding: 0.7rem 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            border-left: 5px solid #1890ff;
+        }
+        .cognizant-btn {
+            background: linear-gradient(90deg, #0050b3 60%, #1890ff 100%);
+            color: #fff !important;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.2rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+        </style>
+        <div class='cognizant-banner'>
+            <h1 style='margin-bottom:0.2em;'>🩺 Health Metrics Calculator</h1>
+            <span style='font-size:1.1em;'>Empowering your health journey with Cognizant Technology Solutions</span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-    left_col,right_col = st.columns([4,2])
-    
+    left_col, right_col = st.columns([4, 2])
+
     with left_col:
         with st.form("Health Form"):
-            gender = st.selectbox("Gender", ["Select","Male", "Female"])
+            st.markdown(
+                """
+                <div class='cognizant-card'>
+                <h3 style='color:#0050b3;margin-bottom:0.7em;'>Personal Details</h3>
+                """,
+                unsafe_allow_html=True
+            )
+            gender = st.selectbox("Gender", ["Select", "Male", "Female"])
             age = st.number_input("Age (years)", min_value=0, max_value=120, value=0, step=1)
             height_cm = st.number_input("Height (cm)", min_value=0, max_value=250, value=0)
             weight_kg = st.number_input("Weight (kg)", min_value=0, max_value=200, value=0)
-            activity_level = st.selectbox("Activity Level", ["Select","Sedentary", "Moderate", "Active"])
-            submitted = st.form_submit_button("Calculate")
+            activity_level = st.selectbox("Activity Level", ["Select", "Sedentary", "Moderate", "Active"])
+            st.markdown("</div>", unsafe_allow_html=True)
+            submitted = st.form_submit_button("Calculate", help="Calculate your health metrics")
 
         if submitted:
             if gender == "Select" or activity_level == "Select" or age == 0 or height_cm == 0 or weight_kg == 0:
                 st.error("Please fill all the fields.")
                 return
-            
-            bmi,bmi_category = calculate_bmi(weight_kg,height_cm)
-            rmr = calculate_rmr(gender,weight_kg,height_cm,age)
-            
+
+            bmi, bmi_category = calculate_bmi(weight_kg, height_cm)
+            rmr = calculate_rmr(gender, weight_kg, height_cm, age)
+
             multiplier = {
                 "Sedentary": 1.1,
                 "Moderate": 1.3,
@@ -79,10 +130,9 @@ def run_health_metrics():
             }[activity_level]
 
             adjusted_rmr = round(rmr * multiplier)
-            
-            reduction = adjusted_rmr - 350
             maintence = adjusted_rmr
-            gain = adjusted_rmr + 350
+            reduction = adjusted_rmr - 500
+            gain = adjusted_rmr + 500
 
             st.subheader("Results")
             st.metric("BMI", bmi, bmi_category)
