@@ -1,4 +1,5 @@
 import streamlit as st
+from .health_metrics_ui import inject_cognizant_css, cognizant_banner, personal_details_card, close_card, results_card, nhs_resources_card
 
 def calculate_bmi(weight_kg, height_cm):
     """
@@ -113,10 +114,10 @@ def run_health_metrics():
             weight_kg = st.number_input("Weight (kg)", min_value=0, max_value=200, value=0)
             activity_level = st.selectbox("Activity Level", ["Select", "Sedentary", "Moderate", "Active"])
             st.markdown("</div>", unsafe_allow_html=True)
-            # Custom styled Calculate button
+            # Custom CSS for the Streamlit Calculate button
             st.markdown("""
                 <style>
-                .cognizant-btn-custom {
+                div.stButton > button {
                     background: linear-gradient(90deg, #0050b3 60%, #1890ff 100%);
                     color: #fff !important;
                     border: none;
@@ -129,16 +130,12 @@ def run_health_metrics():
                     box-shadow: 0 2px 8px rgba(0,80,179,0.10);
                     transition: background 0.2s;
                 }
-                .cognizant-btn-custom:hover {
+                div.stButton > button:hover {
                     background: linear-gradient(90deg, #1890ff 60%, #0050b3 100%);
                 }
                 </style>
-                <button class='cognizant-btn-custom' type='submit'>🚀 Calculate</button>
             """, unsafe_allow_html=True)
-            submitted = False  # We'll use the form's submit event below
-
-        # Streamlit form_submit_button must still be called for form logic
-        submitted = st.form_submit_button(" ", help="Calculate your health metrics")
+            submitted = st.form_submit_button("🚀 Calculate", help="Calculate your health metrics")
 
         if submitted:
             if gender == "Select" or activity_level == "Select" or age == 0 or height_cm == 0 or weight_kg == 0:
@@ -166,8 +163,8 @@ def run_health_metrics():
             st.markdown(f"<div class='cognizant-metric'>BMI: <b>{bmi}</b> ({bmi_category})</div>", unsafe_allow_html=True)
             st.markdown(f"<div class='cognizant-metric'>Resting Metabolic Rate (RMR): <b>{rmr} kcal/day</b></div>", unsafe_allow_html=True)
             st.markdown(f"<div class='cognizant-metric'>Adjusted for Activity Level: <b>{adjusted_rmr} kcal/day</b></div>", unsafe_allow_html=True)
-            st.markdown("<hr style='margin:1em 0 0.7em 0;border-top:1.5px solid #e6f7ff;'>", unsafe_allow_html=True)
-            st.markdown("<b>📊 Suggested Daily Calorie Intake</b>")
+            st.write("")  # Add vertical space
+            st.markdown("### 📊 Suggested Daily Calorie Intake")
             if bmi_category == "Sub Optimal":
                 st.success(f"Weight Gain: **{gain} kcal/day** - approx. 3lbs/month")
             elif bmi_category == "Optimal":
