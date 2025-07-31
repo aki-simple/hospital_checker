@@ -30,7 +30,7 @@ def inject_cognizant_css():
         .cognizant-card {
             background: #e6f7ff;
             border-radius: 14px;
-            padding: 1.5rem 1.2rem;
+            padding: 0.5rem 1.2rem;
             box-shadow: 0 2px 8px rgba(0,80,179,0.04);
             margin-bottom: 1.2rem;
         }

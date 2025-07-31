@@ -52,89 +52,19 @@ def run_health_metrics():
     """
     Run the health metrics calculator app with a modern layout.
     """
-    st.markdown(
-        """
-        <style>
-        .cognizant-banner {
-            background: linear-gradient(90deg, #0050b3 60%, #1890ff 100%);
-            color: #fff;
-            padding: 2rem 1rem 1rem 1rem;
-            border-radius: 18px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 16px rgba(0,80,179,0.07);
-        }
-        .cognizant-card {
-            background: #e6f7ff;
-            border-radius: 14px;
-            padding: 1.5rem 1.2rem;
-            box-shadow: 0 2px 8px rgba(0,80,179,0.04);
-            margin-bottom: 1.2rem;
-        }
-        .cognizant-metric {
-            background: #f4faff;
-            border-radius: 10px;
-            padding: 0.7rem 1rem;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            border-left: 5px solid #1890ff;
-        }
-        .cognizant-btn {
-            background: linear-gradient(90deg, #0050b3 60%, #1890ff 100%);
-            color: #fff !important;
-            border: none;
-            border-radius: 8px;
-            padding: 0.7rem 1.2rem;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-        }
-        </style>
-        <div class='cognizant-banner'>
-            <h1 style='margin-bottom:0.2em;'>🩺 Health Metrics Calculator</h1>
-            <span style='font-size:1.1em;'>Empowering your health journey with Team Hyperscaler Solutions</span>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    left_col, right_col = st.columns([4, 2])
+    inject_cognizant_css()
+    cognizant_banner("🩺 Health Metrics Calculator", "Empowering your health journey with Team Hyperscaler Solutions")
+    left_col, right_col = st.columns([4, 3])
 
     with left_col:
         with st.form("Health Form"):
-            st.markdown(
-                """
-                <div class='cognizant-card'>
-                <h3 style='color:#0050b3;margin-bottom:0.7em;'>Personal Details</h3>
-                """,
-                unsafe_allow_html=True
-            )
+            personal_details_card()
             gender = st.selectbox("Gender", ["Select", "Male", "Female"])
             age = st.number_input("Age (years)", min_value=0, max_value=120, value=0, step=1)
             height_cm = st.number_input("Height (cm)", min_value=0, max_value=250, value=0)
             weight_kg = st.number_input("Weight (kg)", min_value=0, max_value=200, value=0)
             activity_level = st.selectbox("Activity Level", ["Select", "Sedentary", "Moderate", "Active"])
-            st.markdown("</div>", unsafe_allow_html=True)
-            # Custom CSS for the Streamlit Calculate button
-            st.markdown("""
-                <style>
-                div.stButton > button {
-                    background: linear-gradient(90deg, #0050b3 60%, #1890ff 100%);
-                    color: #fff !important;
-                    border: none;
-                    border-radius: 8px;
-                    padding: 0.9rem 1.5rem;
-                    font-weight: bold;
-                    font-size: 1.15rem;
-                    margin-top: 0.7rem;
-                    width: 100%;
-                    box-shadow: 0 2px 8px rgba(0,80,179,0.10);
-                    transition: background 0.2s;
-                }
-                div.stButton > button:hover {
-                    background: linear-gradient(90deg, #1890ff 60%, #0050b3 100%);
-                }
-                </style>
-            """, unsafe_allow_html=True)
+            close_card()
             submitted = st.form_submit_button("🚀 Calculate", help="Calculate your health metrics")
 
         if submitted:
@@ -156,35 +86,16 @@ def run_health_metrics():
             reduction = adjusted_rmr - 350
             gain = adjusted_rmr + 350
 
-            st.markdown("""
-                <div class='cognizant-card' style='background:#fff; border:1.5px solid #1890ff; margin-top:1.5rem;'>
-                    <h4 style='color:#0050b3;margin-bottom:0.8em;'>Results</h4>
-            """, unsafe_allow_html=True)
-            st.markdown(f"<div class='cognizant-metric'>BMI: <b>{bmi}</b> ({bmi_category})</div>", unsafe_allow_html=True)
-            st.markdown(f"<div class='cognizant-metric'>Resting Metabolic Rate (RMR): <b>{rmr} kcal/day</b></div>", unsafe_allow_html=True)
-            st.markdown(f"<div class='cognizant-metric'>Adjusted for Activity Level: <b>{adjusted_rmr} kcal/day</b></div>", unsafe_allow_html=True)
-            st.write("")  # Add vertical space
-            st.markdown("### 📊 Suggested Daily Calorie Intake")
+            results_card(bmi, bmi_category, rmr, adjusted_rmr, gain, reduction, maintence)
             if bmi_category == "Sub Optimal":
-                st.success(f"Weight Gain: **{gain} kcal/day** - approx. 3lbs/month")
+                st.warning(f"Weight Gain: **{gain} kcal/day** - approx. 3lbs/month")
             elif bmi_category == "Optimal":
                 st.info(f"Weight Loss: **{reduction} kcal/day** - approx. 3lbs/month")
                 st.info(f"Maintenance: **{maintence} kcal/day**")
-                st.success(f"Weight Gain: **{gain} kcal/day** - approx. 3lbs/month")
+                st.info(f"Weight Gain: **{gain} kcal/day** - approx. 3lbs/month")
             else:
                 st.warning(f"Weight Loss: **{reduction} kcal/day** - approx. 3lbs/month")
-            st.markdown("</div>", unsafe_allow_html=True)
+            close_card()
     
     with right_col:
-        st.markdown("""
-            <div class='cognizant-card' style='background:#f4faff; border:1.5px solid #0050b3;'>
-                <h4 style='color:#0050b3;'>NHS Resources</h4>
-                <ul style='padding-left:1.1em;font-size:1.04em;'>
-                    <li>🥚 <a href='https://www.plymouthhospitals.nhs.uk/display-pil/pil-a-guide-to-increasing-your-protein-intake-8276/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Protein Intake</a></li>
-                    <li>🥗 <a href='https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/' target='_blank' style='color:#0050b3;text-decoration:underline;'>5 a day</a></li>
-                    <li>🥬 <a href='https://www.nhs.uk/live-well/eat-well/how-to-get-more-fibre-into-your-diet/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Fibre Intake</a></li>
-                    <li>🧴 <a href='https://www.nhs.uk/conditions/obesity/treatment/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Obesity treatment</a></li>
-                    <li>💊 <a href='https://www.england.nhs.uk/ourwork/prevention/obesity/medicines-for-obesity/weight-management-injections/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Weight management injections</a></li>
-                </ul>
-            </div>
-        """, unsafe_allow_html=True)
+        nhs_resources_card()

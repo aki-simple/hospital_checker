@@ -30,9 +30,9 @@ def inject_cognizant_css():
         .cognizant-card {
             background: #e6f7ff;
             border-radius: 14px;
-            padding: 1rem 0.8rem 0.8rem 0.8rem;
+            padding: 0.5rem 0.8rem 0.8rem 0.5rem;
             box-shadow: 0 2px 8px rgba(0,80,179,0.04);
-            margin-bottom: 0.7rem;
+            margin-bottom: 0.2rem;
         }
         .cognizant-metric {
             background: #f4faff;
@@ -56,7 +56,7 @@ def cognizant_banner(title, subtitle):
 def personal_details_card():
     st.markdown("""
         <div class='cognizant-card'>
-        <h3 style='color:#0050b3;margin-bottom:0.7em;'>Personal Details</h3>
+        <h3 style='color:#0050b3;margin-bottom:0.2em;'>Personal Details</h3>
     """, unsafe_allow_html=True)
 
 def close_card():
