@@ -89,7 +89,7 @@ def run_health_metrics():
             st.metric("Resting Metabolic RateMR", f"{rmr} kcal/day")
             st.metric("Adjusted for Activity Level", f"{adjusted_rmr} kcal/day")
             
-            st.markdown("### Suggested Daily Calorie Intake")
+            st.markdown("### 📊 Suggested Daily Calorie Intake")
             if bmi_category == "Sub Optimal":
                 st.write(f" **Weight Gain**: **{gain} kcal/day** - approx. 3lbs/month")
             elif bmi_category == "Optimal":
@@ -101,6 +101,8 @@ def run_health_metrics():
     
     with right_col:
         st.markdown("### NHS Resources")
-        st.markdown("[ Protein Intake](https://www.plymouthhospitals.nhs.uk/display-pil/pil-a-guide-to-increasing-your-protein-intake-8276/)")
-        st.markdown("[ 5 a day](https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/)")
-        st.markdown("[ Fibre Intake](https://www.nhs.uk/live-well/eat-well/how-to-get-more-fibre-into-your-diet/)")
+        st.markdown("[🥚 Protein Intake](https://www.plymouthhospitals.nhs.uk/display-pil/pil-a-guide-to-increasing-your-protein-intake-8276/)")
+        st.markdown("[🥗 5 a day](https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/)")
+        st.markdown("[🥬 Fibre Intake](https://www.nhs.uk/live-well/eat-well/how-to-get-more-fibre-into-your-diet/)")
+        st.markdown("[🧴 Obesity treatment](https://www.nhs.uk/conditions/obesity/treatment/)")
+        st.markdown("[💊 Weight management injections](https://www.england.nhs.uk/ourwork/prevention/obesity/medicines-for-obesity/weight-management-injections/)")
