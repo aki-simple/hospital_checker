@@ -98,7 +98,7 @@ def run_hospital_finder():
                     f"<div class='cognizant-card'><span style='color:#0050b3;font-weight:bold;'>Found {len(results)} hospitals offering {specialty}.</span></div>",
                     unsafe_allow_html=True
                 )
-                st.dataframe(results[['Hospital Name', 'Postcode', 'distance_km']])
+                st.dataframe(results[['Hospital Name', 'Phone', 'Postcode', 'distance_km']], use_container_width=True, hide_index=True)
                 show_resource = True
             else:
                 st.error("Failed to geocode postcode.")

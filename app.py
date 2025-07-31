@@ -7,10 +7,10 @@ st.sidebar.title("Navigation")
 selection = st.sidebar.radio("Choose page", [
     "Hospital Finder",
     "Physical and Mental Wellbeing",
-    "Health Metrics"
+    "Weight Management"
 ])
 
 if selection == "Hospital Finder":
     run_hospital_finder()
-if selection == "Health Metrics":
+if selection == "Weight Management":
     run_health_metrics()
