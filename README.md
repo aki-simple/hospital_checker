@@ -1,27 +1,87 @@
-1. Install python from company portal
+# 🏥 Hospital Checker
 
-2. Activate your platform (ex: windsurf) with the help of company portal and FAQs
+A modern, interactive health and hospital information platform built with Streamlit. Easily check your health metrics, find nearby hospitals, and access NHS resources—all with a beautiful Cognizant-inspired UI.
 
-3. Install github development community from company portal
-    3.1. Identify where git bash is installed and add the path to the environment variable PATH
-    3.2. Create a github account with the company email id
+---
 
-4. Clone this repository: In the terminal in your platform(ex: windsurf), enter below commands one-by-one
-    4.1. git clone https://github.com/your-username/hospital-checker.git
-    4.2. cd hospital-checker
+## 🚀 Features
+- **Hospital Finder:** Search for hospitals by specialty and postcode, view distances, and access NHS resources.
+- **Weight Management:** Calculate BMI, RMR, and get personalized calorie recommendations.
+- **Wellbeing Resources:** Quick links to NHS and health resources.
+- **Modern UI:** Cognizant-themed, responsive, and visually appealing.
 
-5. Create and activate a virtual environment: In the terminal in your platform(ex: windsurf), enter below commands one-by-one
-    5.1. python -m venv .venv
-    5.2. venv\Scripts\activate
+---
 
-6. Install dependencies: In the terminal in your platform(ex: windsurf), enter below commands one-by-one
-    6.1. pip install -r requirements.txt
+## 🛠️ Getting Started
 
-7. Run the app: In the terminal in your platform(ex: windsurf), enter below commands one-by-one
-    7.1. streamlit run app.py
+### Prerequisites
+- Access to your company portal for platform and GitHub setup
 
+### Setup Instructions
 
-Project Structure
-    app.py: The main application file
-    data: Directory containing the raw and cleaned hospital data
-    utils: Directory containing utility functions for geocoding and data preprocessing
+1. **Install Python** from your company portal.
+2. **Activate your platform** (e.g., windsurf) using company portal and FAQs.
+3. **Install GitHub Development Community** from your company portal.
+    - Identify where Git Bash is installed and add its path to your environment variable `PATH`.
+    - Create a GitHub account with your company email.
+4. **Clone this repository:**
+    ```sh
+    git clone https://github.com/your-username/hospital-checker.git
+    cd hospital-checker
+    ```
+5. **Create and activate a virtual environment:**
+    ```sh
+    python -m venv .venv
+    .venv\Scripts\activate  # On Windows
+    # Or
+    source .venv/bin/activate  # On Mac/Linux
+    ```
+6. **Install dependencies:**
+    ```sh
+    pip install -r requirements.txt
+    ```
+7. **Run the app:**
+    ```sh
+    streamlit run app.py
+    ```
+
+---
+
+## 📁 Project Structure
+
+```text
+hospital-checker/
+├── app.py                  # Main Streamlit entry point
+├── data/                   # Raw and cleaned hospital data
+├── requirements.txt        # Python dependencies
+├── utils/                  # Utility modules (geocode, filter, preprocess, etc.)
+├── views/                  # Streamlit page logic and UI helpers
+│   ├── health_metrics.py
+│   ├── health_metrics_ui.py
+│   ├── hospital_finder.py
+│   ├── hospital_finder_ui.py
+│   └── wellbeing.py
+└── .streamlit/
+    └── config.toml         # Custom theme and settings
+```
+
+---
+
+## 💡 Usage
+- Navigate between **Hospital Finder**, **Weight Management**, and **Wellbeing** from the sidebar.
+- Enter your details in the forms and get instant feedback, recommendations, and resource links.
+
+---
+
+## ❓ Troubleshooting
+- If you see errors about missing packages, re-run `pip install -r requirements.txt`.
+- If the app does not launch, make sure your virtual environment is activated.
+- For platform-specific issues, refer to your company portal or FAQs.
+
+---
+
+## 🤝 Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
