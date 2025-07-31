@@ -6,8 +6,8 @@ st.set_page_config(page_title="Health Navigator", layout="centered")
 st.sidebar.title("Navigation")
 selection = st.sidebar.radio("Choose page", [
     "Hospital Finder",
-    "Physical and Mental Wellbeing",
-    "Weight Management"
+    "Weight Management",
+    "Physical and Mental Wellbeing"
 ])
 
 if selection == "Hospital Finder":
