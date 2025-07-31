@@ -66,7 +66,7 @@ def run_hospital_finder():
         </style>
         <div class='cognizant-banner'>
             <h1 style='margin-bottom:0.2em;'>🏥 Hospital Finder</h1>
-            <span style='font-size:1.1em;'>Find the best care with Cognizant Technology Solutions</span>
+            <span style='font-size:1.1em;'>Find the best care with Team Hyperscaler Solutions</span>
         </div>
         """,
         unsafe_allow_html=True

@@ -49,7 +49,7 @@ def calculate_rmr(gender,weight_kg,height_cm,age):
 
 def run_health_metrics():
     """
-    Run the health metrics calculator app with Cognizant branding and a modern layout.
+    Run the health metrics calculator app with a modern layout.
     """
     st.markdown(
         """
@@ -90,7 +90,7 @@ def run_health_metrics():
         </style>
         <div class='cognizant-banner'>
             <h1 style='margin-bottom:0.2em;'>🩺 Health Metrics Calculator</h1>
-            <span style='font-size:1.1em;'>Empowering your health journey with Cognizant Technology Solutions</span>
+            <span style='font-size:1.1em;'>Empowering your health journey with Team Hyperscaler Solutions</span>
         </div>
         """,
         unsafe_allow_html=True
