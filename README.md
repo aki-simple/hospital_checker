@@ -1,14 +1,36 @@
-# 🏥 Hospital Checker by TEAM HYPERSCALER
+<div align="center">
 
-A modern, interactive health and hospital information platform. Easily check your health metrics, find nearby hospitals, and access NHS resources
+# 🏥 TEAM HYPERSCALER: Well-being for All
+
+</div>
+
+<div align="center">
+Empowering holistic well-being through accessible health insights, community engagement, and trusted NHS resources.
+</div>
+
+---
+
+## 🌟 Vision Statement
+
+Our vision is to empower individuals and communities to take charge of their physical and mental well-being. We believe in making health information accessible, interactive, and actionable for everyone—bridging the gap between self-care, clinical care, and community support. By integrating trusted NHS resources, data-backed insights, and a vibrant community poll, we aim to foster a healthier, more connected society.
 
 ---
 
 ## 🚀 Features
-- **Hospital Finder:** Search for hospitals by specialty and postcode, view distances, and access NHS resources.
-- **Weight Management:** Calculate BMI, RMR, and get personalized calorie recommendations.
-- **Wellbeing Resources:** Quick links to NHS and health resources.
-- **Modern UI:** Cognizant-themed, responsive, and visually appealing.
+- **Well-being Hub (Default Home):**
+  - Interactive, NHS-themed well-being page for the general public.
+  - Mood check, rotating NHS tips, and inspirational media carousel.
+  - Live community poll with real-time, persistent results.
+  - Extensive, curated NHS resources on nutrition and healthy living.
+- **Hospital Finder:**
+  - Search for hospitals by specialty and postcode.
+  - View results with distances and specialty-specific NHS links.
+- **Weight Management:**
+  - Calculate BMI, RMR, and get personalized calorie recommendations.
+  - Access NHS resources for weight and nutrition.
+- **Modern UI:**
+  - Cognizant-themed, responsive, and visually appealing.
+  - Consistent NHS branding for trust and clarity.
 
 ---
 
