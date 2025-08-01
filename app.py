@@ -4,18 +4,23 @@ from views.health_metrics import run_health_metrics
 from views.wellbeing import run_wellbeing_page
 
 st.set_page_config(page_title="Health Navigator", layout="centered")
-st.sidebar.title("Navigation")
-selection = st.sidebar.radio("Choose page", [
-    "Physical and Mental Wellbeing",
+from views.navigation_ui import sidebar_nav
+
+options = [
+    "Wellbeing",
+    "Female Health",
     "Hospital Finder",
     "Weight Management"
-])
+]
+page = sidebar_nav(options, "Wellbeing")
 
-if selection == "Physical and Mental Wellbeing":
+if page == "Wellbeing":
     run_wellbeing_page()
-if selection == "Hospital Finder":
+elif page == "Female Health":
+    run_female_health_page()
+elif page == "Hospital Finder":
     run_hospital_finder()
-if selection == "Weight Management":
+elif page == "Weight Management":
     run_health_metrics()
 
 
