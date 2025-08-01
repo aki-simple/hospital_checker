@@ -92,9 +92,14 @@ def run_wellbeing_page():
     img_idx = 0
     cols = st.columns(len(IMAGES))
     for i, col in enumerate(cols):
-        if col.button(f"{i+1}"):
+        if col.button(f"{i+1}", help=f"Show inspirational image {i+1}"):
             img_idx = i
-    st.image(IMAGES[img_idx], use_container_width=True, caption="Stay inspired!")
+    st.image(
+        IMAGES[img_idx], 
+        use_container_width=True, 
+        caption="Stay inspired!",
+        output_format="auto"
+    )  # Streamlit uses caption as alt text for accessibility
     st.markdown(f"<div style='font-style:italic;color:#0050b3;font-size:1.07em;'>{random.choice(QUOTES)}</div>", unsafe_allow_html=True)
     close_card()
 
