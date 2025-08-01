@@ -57,3 +57,49 @@ NHS_RESOURCES = {
     "Cancer Research": ["https://www.nhs.uk/conditions/cancer/"],
 }
 
+# Well-being Page Constants
+NHS_WELLBEING_RESOURCES = [
+    {"title": "Every Mind Matters", "desc": "NHS mental health tips & self-assessment.", "url": "https://www.nhs.uk/every-mind-matters/", "icon": "🧠"},
+    {"title": "Live Well", "desc": "NHS healthy living advice.", "url": "https://www.nhs.uk/live-well/", "icon": "💪"},
+    {"title": "Mental Health", "desc": "NHS mental health support.", "url": "https://www.nhs.uk/mental-health/", "icon": "💬"},
+    {"title": "ONS Well-being Data", "desc": "UK well-being statistics.", "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing", "icon": "📊"},
+]
+
+WELLBEING_TIPS = [
+    "Drink enough water today! Hydration boosts mood and focus.",
+    "Take a short walk – even 10 minutes helps your well-being.",
+    "Try a 1-minute mindful breathing break.",
+    "Connect with a friend or loved one today.",
+    "Aim for 7-9 hours of sleep tonight.",
+    "Eat a rainbow: add more colours to your plate.",
+    "Limit screen time before bed for better sleep.",
+    "Practice gratitude: write down one thing you're thankful for.",
+]
+
+WELLBEING_IMAGES = [
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb",  # nature
+    "https://images.unsplash.com/photo-1465101046530-73398c7f28ca",  # exercise
+    "https://images.unsplash.com/photo-1517841905240-472988babdf9",  # community
+    "https://images.unsplash.com/photo-1464983953574-0892a716854b",  # calm
+]
+
+WELLBEING_QUOTES = [
+    "The greatest wealth is health. – Virgil",
+    "Take care of your body. It's the only place you have to live. – Jim Rohn",
+    "Self-care is not selfish. You cannot serve from an empty vessel.",
+    "Well-being is not a destination, but a journey.",
+]
+
+EMERGENCY_CONTACTS = [
+    {"name": "NHS 111 (Non-Emergency)", "contact": "111", "desc": "24/7 health advice."},
+    {"name": "Samaritans", "contact": "116 123", "desc": "Mental health support, 24/7."},
+    {"name": "Emergency Services", "contact": "999", "desc": "Medical, fire, police emergencies."},
+]
+
+SUPPORT_SUGGESTIONS = {
+    "Stressed": "Consider reaching out to the NHS Every Mind Matters or Samaritans for support.",
+    "Low": "Consider reaching out to the NHS Every Mind Matters or Samaritans for support.",
+    "Meh": "Try a quick walk, a healthy snack, or connect with a friend!",
+    "Great": "Keep up the positive energy! Maybe share your good mood with someone else.",
+    "Okay": "Keep up the positive energy! Maybe share your good mood with someone else.",
+}

@@ -62,15 +62,103 @@ def personal_details_card():
 def close_card():
     st.markdown("</div>", unsafe_allow_html=True)
 
-def results_card(bmi, bmi_category, rmr, adjusted_rmr, gain, reduction, maintence):
-    st.markdown("""
-        <div class='cognizant-card' style='background:#fff; border:1.5px solid #1890ff;'>
-            <h4 style='color:#0050b3;margin-bottom:0.5em;'>Results</h4>
-    """, unsafe_allow_html=True)
-    st.markdown(f"<div class='cognizant-metric'>BMI: <b>{bmi}</b> ({bmi_category})</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='cognizant-metric'>Resting Metabolic Rate (RMR): <b>{rmr} kcal/day</b></div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='cognizant-metric'>Adjusted for Activity Level: <b>{adjusted_rmr} kcal/day</b></div>", unsafe_allow_html=True)
-    st.markdown("### 📊 Suggested Daily Calorie Intake")
+def health_metrics_results_card(bmi, bmi_category, rmr, adjusted_rmr):
+    """
+    Modern results card: BMI, RMR, Adjusted RMR in three columns.
+    """
+    st.markdown("<div class='cognizant-card' style='background:#fff; border:1.5px solid #1890ff;'>", unsafe_allow_html=True)
+    st.markdown("<h4 style='color:#0050b3;margin-bottom:0.5em;'>Your Health Metrics</h4>", unsafe_allow_html=True)
+    results_cols = st.columns(3)
+    with results_cols[0]:
+        st.markdown(f"""
+        <div style='background:#e6f7ff; border-radius:10px; padding:0.7em 0.5em; border-left:5px solid #1890ff; text-align:center;'>
+            <span style='font-size:1.07em; color:#0050b3; font-weight:bold;'>BMI</span><br>
+            <span style='font-size:1.3em; color:#222; font-weight:bold;'>{bmi}</span><br>
+            <span style='font-size:0.97em; color:#888;'>{bmi_category}</span>
+        </div>
+        """, unsafe_allow_html=True)
+    with results_cols[1]:
+        st.markdown(f"""
+        <div style='background:#e6f7ff; border-radius:10px; padding:0.7em 0.5em; border-left:5px solid #1890ff; text-align:center;'>
+            <span style='font-size:1.07em; color:#0050b3; font-weight:bold;'>RMR</span><br>
+            <span style='font-size:1.3em; color:#222; font-weight:bold;'>{rmr} kcal/day</span><br>
+            <span style='font-size:0.97em; color:#888;'>Resting Metabolic Rate</span>
+        </div>
+        """, unsafe_allow_html=True)
+    with results_cols[2]:
+        st.markdown(f"""
+        <div style='background:#e6f7ff; border-radius:10px; padding:0.7em 0.5em; border-left:5px solid #1890ff; text-align:center;'>
+            <span style='font-size:1.07em; color:#0050b3; font-weight:bold;'>Adj. RMR</span><br>
+            <span style='font-size:1.3em; color:#222; font-weight:bold;'>{adjusted_rmr} kcal/day</span><br>
+            <span style='font-size:0.97em; color:#888;'>For Activity Level</span>
+        </div>
+        """, unsafe_allow_html=True)
+    close_card()
+
+def suggested_calorie_intake_card(bmi_category, gain, maintence, reduction):
+    """
+    Dynamic suggested daily calorie intake card (shows only relevant cards based on BMI category).
+    """
+    st.markdown("<div class='cognizant-card' style='background:#fff; border:1.5px solid #1890ff; margin-top:1em;'>", unsafe_allow_html=True)
+    st.markdown("<h4 style='color:#0050b3;margin-bottom:0.5em;'>Suggested Daily Calorie Intake</h4>", unsafe_allow_html=True)
+    if bmi_category == "Sub Optimal":
+        intake_cols = st.columns(2)
+        # Weight Gain
+        with intake_cols[0]:
+            st.markdown(f"""
+            <div style='background:#e6f7ff; border-radius:10px; padding:0.7em 0.5em; border-left:5px solid #52c41a; text-align:center; box-shadow:0 0 0 3px #52c41a55;'>
+                <span style='font-size:1.07em; color:#52c41a; font-weight:bold;'>Weight Gain</span><br>
+                <span style='font-size:1.3em; color:#222; font-weight:bold;'>{gain} kcal/day</span><br>
+                <span style='font-size:0.97em; color:#888;'>(~3lbs/month)</span>
+            </div>
+            """, unsafe_allow_html=True)
+        # Maintenance
+        with intake_cols[1]:
+            st.markdown(f"""
+            <div style='background:#e6f7ff; border-radius:10px; padding:0.7em 0.5em; border-left:5px solid #0050b3; text-align:center;'>
+                <span style='font-size:1.07em; color:#0050b3; font-weight:bold;'>Maintenance</span><br>
+                <span style='font-size:1.3em; color:#222; font-weight:bold;'>{maintence} kcal/day</span>
+            </div>
+            """, unsafe_allow_html=True)
+    elif bmi_category == "Optimal":
+        intake_cols = st.columns(3)
+        # Weight Gain
+        with intake_cols[0]:
+            st.markdown(f"""
+            <div style='background:#e6f7ff; border-radius:10px; padding:0.7em 0.5em; border-left:5px solid #52c41a; text-align:center;'>
+                <span style='font-size:1.07em; color:#52c41a; font-weight:bold;'>Weight Gain</span><br>
+                <span style='font-size:1.3em; color:#222; font-weight:bold;'>{gain} kcal/day</span><br>
+                <span style='font-size:0.97em; color:#888;'>(~3lbs/month)</span>
+            </div>
+            """, unsafe_allow_html=True)
+        # Maintenance
+        with intake_cols[1]:
+            st.markdown(f"""
+            <div style='background:#e6f7ff; border-radius:10px; padding:0.7em 0.5em; border-left:5px solid #0050b3; text-align:center;'>
+                <span style='font-size:1.07em; color:#0050b3; font-weight:bold;'>Maintenance</span><br>
+                <span style='font-size:1.3em; color:#222; font-weight:bold;'>{maintence} kcal/day</span>
+            </div>
+            """, unsafe_allow_html=True)
+        # Weight Loss
+        with intake_cols[2]:
+            st.markdown(f"""
+            <div style='background:#e6f7ff; border-radius:10px; padding:0.7em 0.5em; border-left:5px solid #fa541c; text-align:center;'>
+                <span style='font-size:1.07em; color:#fa541c; font-weight:bold;'>Weight Loss</span><br>
+                <span style='font-size:1.3em; color:#222; font-weight:bold;'>{reduction} kcal/day</span><br>
+                <span style='font-size:0.97em; color:#888;'>(~3lbs/month)</span>
+            </div>
+            """, unsafe_allow_html=True)
+    else:  # Above Optimal or Obesity
+        intake_cols = st.columns(1)
+        with intake_cols[0]:
+            st.markdown(f"""
+            <div style='background:#e6f7ff; border-radius:10px; padding:0.7em 0.5em; border-left:5px solid #fa541c; text-align:center; box-shadow:0 0 0 3px #fa541c55;'>
+                <span style='font-size:1.07em; color:#fa541c; font-weight:bold;'>Weight Loss</span><br>
+                <span style='font-size:1.3em; color:#222; font-weight:bold;'>{reduction} kcal/day</span><br>
+                <span style='font-size:0.97em; color:#888;'>(~3lbs/month)</span>
+            </div>
+            """, unsafe_allow_html=True)
+    close_card()
 
 def nhs_resources_card():
     with st.container():

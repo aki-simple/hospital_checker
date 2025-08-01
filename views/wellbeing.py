@@ -4,44 +4,7 @@ import random
 import pandas as pd
 import plotly.express as px
 
-# --- NHS and ONS Data Links ---
-NHS_RESOURCES = [
-    {"title": "Every Mind Matters", "desc": "NHS mental health tips & self-assessment.", "url": "https://www.nhs.uk/every-mind-matters/", "icon": "🧠"},
-    {"title": "Live Well", "desc": "NHS healthy living advice.", "url": "https://www.nhs.uk/live-well/", "icon": "💪"},
-    {"title": "Mental Health", "desc": "NHS mental health support.", "url": "https://www.nhs.uk/mental-health/", "icon": "💬"},
-    {"title": "ONS Well-being Data", "desc": "UK well-being statistics.", "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing", "icon": "📊"},
-]
-
-TIPS = [
-    "Drink enough water today! Hydration boosts mood and focus.",
-    "Take a short walk – even 10 minutes helps your well-being.",
-    "Try a 1-minute mindful breathing break.",
-    "Connect with a friend or loved one today.",
-    "Aim for 7-9 hours of sleep tonight.",
-    "Eat a rainbow: add more colours to your plate.",
-    "Limit screen time before bed for better sleep.",
-    "Practice gratitude: write down one thing you're thankful for.",
-]
-
-IMAGES = [
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb",  # nature
-    "https://images.unsplash.com/photo-1465101046530-73398c7f28ca",  # exercise
-    "https://images.unsplash.com/photo-1517841905240-472988babdf9",  # community
-    "https://images.unsplash.com/photo-1464983953574-0892a716854b",  # calm
-]
-
-QUOTES = [
-    "The greatest wealth is health. – Virgil",
-    "Take care of your body. It's the only place you have to live. – Jim Rohn",
-    "Self-care is not selfish. You cannot serve from an empty vessel.",
-    "Well-being is not a destination, but a journey.",
-]
-
-EMERGENCY_CONTACTS = [
-    {"name": "NHS 111 (Non-Emergency)", "contact": "111", "desc": "24/7 health advice."},
-    {"name": "Samaritans", "contact": "116 123", "desc": "Mental health support, 24/7."},
-    {"name": "Emergency Services", "contact": "999", "desc": "Medical, fire, police emergencies."},
-]
+from utils.constants import NHS_WELLBEING_RESOURCES, WELLBEING_TIPS, WELLBEING_IMAGES, WELLBEING_QUOTES, EMERGENCY_CONTACTS, SUPPORT_SUGGESTIONS
 
 # --- Example Data for Visualization ---
 wellbeing_data = pd.DataFrame({
@@ -58,8 +21,8 @@ def run_wellbeing_page():
     
     st.markdown("<div class='cognizant-card'>", unsafe_allow_html=True)
     st.header("NHS & Trusted Resources")
-    cols = st.columns(len(NHS_RESOURCES))
-    for i, res in enumerate(NHS_RESOURCES):
+    cols = st.columns(len(NHS_WELLBEING_RESOURCES))
+    for i, res in enumerate(NHS_WELLBEING_RESOURCES):
         with cols[i]:
             st.markdown(f"<div style='padding:0.3em 0.7em;'><span style='font-size:2em;'>{res['icon']}</span> <b>{res['title']}</b><br><span style='font-size:0.98em;'>{res['desc']}</span><br><a href='{res['url']}' target='_blank' style='color:#0050b3;text-decoration:underline;'>Learn More</a></div>", unsafe_allow_html=True)
     close_card()
@@ -90,23 +53,23 @@ def run_wellbeing_page():
     st.subheader("Inspiration & Positivity")
     # Image navigation with icon buttons 1,2,3...
     img_idx = 0
-    cols = st.columns(len(IMAGES))
+    cols = st.columns(len(WELLBEING_IMAGES))
     for i, col in enumerate(cols):
         if col.button(f"{i+1}", help=f"Show inspirational image {i+1}"):
             img_idx = i
     st.image(
-        IMAGES[img_idx], 
+        WELLBEING_IMAGES[img_idx], 
         use_container_width=True, 
         caption="Stay inspired!",
         output_format="auto"
     )  # Streamlit uses caption as alt text for accessibility
-    st.markdown(f"<div style='font-style:italic;color:#0050b3;font-size:1.07em;'>{random.choice(QUOTES)}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-style:italic;color:#0050b3;font-size:1.07em;'>{random.choice(WELLBEING_QUOTES)}</div>", unsafe_allow_html=True)
     close_card()
 
     # --- Rotating NHS-backed Tip ---
     st.markdown("<div class='cognizant-card'>", unsafe_allow_html=True)
     st.subheader("Tip of the Day")
-    st.info(random.choice(TIPS))
+    st.info(random.choice(WELLBEING_TIPS))
     close_card()
 
     # --- Emergency & Support Contacts ---

@@ -1,5 +1,6 @@
 import streamlit as st
-from .health_metrics_ui import inject_cognizant_css, cognizant_banner, personal_details_card, close_card, results_card, nhs_resources_card
+import random
+from .health_metrics_ui import inject_cognizant_css, cognizant_banner, personal_details_card, close_card, nhs_resources_card
 
 def calculate_bmi(weight_kg, height_cm):
     """
@@ -50,52 +51,52 @@ def calculate_rmr(gender,weight_kg,height_cm,age):
 
 def run_health_metrics():
     """
-    Run the health metrics calculator app with a modern layout.
+    Run the health metrics calculator app with a modern layout and enhanced UX.
     """
     inject_cognizant_css()
     cognizant_banner("🩺 Health Metrics Calculator", "Empowering your health journey with Team Hyperscaler Solutions")
-    left_col, right_col = st.columns([4, 3])
-
-    with left_col:
+    form_col, nhs_col = st.columns([5, 3])
+    with form_col:
         with st.form("Health Form"):
             personal_details_card()
-            gender = st.selectbox("Gender", ["Select", "Male", "Female"])
-            age = st.number_input("Age (years)", min_value=0, max_value=120, value=0, step=1)
-            height_cm = st.number_input("Height (cm)", min_value=0, max_value=250, value=0)
-            weight_kg = st.number_input("Weight (kg)", min_value=0, max_value=200, value=0)
-            activity_level = st.selectbox("Activity Level", ["Select", "Sedentary", "Moderate", "Active"])
+            st.markdown("<span style='font-size:0.97em;color:#666;'>Please enter your details below. All fields are required.</span>", unsafe_allow_html=True)
+            gender = st.selectbox("Gender", ["Select", "Male", "Female"], help="Select your gender")
+            age = st.number_input("Age", min_value=0, max_value=120, value=0, step=1, help="Enter your age in years")
+            height_cm = st.number_input("Height", min_value=0, max_value=250, value=0, help="Enter your height in centimeters (cm)")
+            weight_kg = st.number_input("Weight", min_value=0, max_value=200, value=0, help="Enter your weight in kilograms (kg)")
+            activity_level = st.selectbox("Activity Level", ["Select", "Sedentary", "Moderate", "Active"], help="Choose your typical activity level")
+            st.caption("👤 Gender | 🎂 Age (years) | 📏 Height (cm) | ⚖️ Weight (kg) | 🚶 Activity Level")
             close_card()
             submitted = st.form_submit_button("🚀 Calculate", help="Calculate your health metrics")
 
-        if submitted:
-            if gender == "Select" or activity_level == "Select" or age == 0 or height_cm == 0 or weight_kg == 0:
-                st.error("Please fill all the fields.")
-                return
-
-            bmi, bmi_category = calculate_bmi(weight_kg, height_cm)
-            rmr = calculate_rmr(gender, weight_kg, height_cm, age)
-
-            multiplier = {
-                "Sedentary": 1.2,
-                "Moderate": 1.35,
-                "Active": 1.5
-            }[activity_level]
-
-            adjusted_rmr = round(rmr * multiplier)
-            maintence = adjusted_rmr
-            reduction = adjusted_rmr - 350
-            gain = adjusted_rmr + 350
-
-            results_card(bmi, bmi_category, rmr, adjusted_rmr, gain, reduction, maintence)
-            if bmi_category == "Sub Optimal":
-                st.warning(f"Weight Gain: **{gain} kcal/day** - approx. 3lbs/month")
-            elif bmi_category == "Optimal":
-                st.info(f"Weight Loss: **{reduction} kcal/day** - approx. 3lbs/month")
-                st.info(f"Maintenance: **{maintence} kcal/day**")
-                st.info(f"Weight Gain: **{gain} kcal/day** - approx. 3lbs/month")
-            else:
-                st.warning(f"Weight Loss: **{reduction} kcal/day** - approx. 3lbs/month")
-            close_card()
-    
-    with right_col:
+    with nhs_col:
         nhs_resources_card()
+
+    if submitted:
+        errors = []
+        if gender == "Select":
+            errors.append("Please select your gender.")
+        if activity_level == "Select":
+            errors.append("Please select your activity level.")
+        if age <= 0:
+            errors.append("Please enter a valid age.")
+        if height_cm <= 0:
+            errors.append("Please enter a valid height (cm).")
+        if weight_kg <= 0:
+            errors.append("Please enter a valid weight (kg).")
+        if errors:
+            for err in errors:
+                st.error(err)
+            return
+
+        bmi, bmi_category = calculate_bmi(weight_kg, height_cm)
+        rmr = calculate_rmr(gender, weight_kg, height_cm, age)
+        multiplier = {"Sedentary": 1.2, "Moderate": 1.35, "Active": 1.5}[activity_level]
+        adjusted_rmr = round(rmr * multiplier)
+        maintence = adjusted_rmr
+        reduction = adjusted_rmr - 350
+        gain = adjusted_rmr + 350
+
+        from .health_metrics_ui import health_metrics_results_card, suggested_calorie_intake_card
+        health_metrics_results_card(bmi, bmi_category, rmr, adjusted_rmr)
+        suggested_calorie_intake_card(bmi_category, gain, maintence, reduction)
