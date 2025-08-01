@@ -73,15 +73,26 @@ def results_card(bmi, bmi_category, rmr, adjusted_rmr, gain, reduction, maintenc
     st.markdown("### 📊 Suggested Daily Calorie Intake")
 
 def nhs_resources_card():
-    st.markdown("""
-        <div class='cognizant-card' style='background:#f4faff; border:1.5px solid #0050b3;'>
-            <h4 style='color:#0050b3;'>NHS Resources</h4>
-            <ul style='padding-left:1.1em;font-size:1.04em;'>
-                <li>🥚 <a href='https://www.plymouthhospitals.nhs.uk/display-pil/pil-a-guide-to-increasing-your-protein-intake-8276/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Protein Intake</a></li>
-                <li>🥗 <a href='https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/' target='_blank' style='color:#0050b3;text-decoration:underline;'>5 a day</a></li>
-                <li>🥬 <a href='https://www.nhs.uk/live-well/eat-well/how-to-get-more-fibre-into-your-diet/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Fibre Intake</a></li>
-                <li>🧴 <a href='https://www.nhs.uk/conditions/obesity/treatment/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Obesity treatment</a></li>
-                <li>💊 <a href='https://www.england.nhs.uk/ourwork/prevention/obesity/medicines-for-obesity/weight-management-injections/' target='_blank' style='color:#0050b3;text-decoration:underline;'>Weight management injections</a></li>
+    with st.container():
+        st.markdown("""
+            <div style='background:#fff; border:2.5px solid #005eb8; border-radius:16px; margin:0.7em 0 1.2em 0; box-shadow:0 2px 12px rgba(0,94,184,0.08); padding:0.5em 0.5em 0.2em 0.5em;'>
+            """, unsafe_allow_html=True)
+        st.markdown("<h3 style='color:#005eb8; font-family:sans-serif; font-weight:800; margin:0 0 0.2em 0;'>NHS Resources</h3>", unsafe_allow_html=True)
+        st.markdown("""
+            <ul style='padding-left:2.5em; padding-bottom:1em; font-size:1em; font-family:sans-serif; color:#222;'>
+                <li style='margin-bottom:0.3em;'>🍽️ <a href='https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>The Eatwell Guide</a></li>
+                <li style='margin-bottom:0.3em;'>🥦 <a href='https://www.nhs.uk/live-well/eat-well/8-tips-for-healthy-eating/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>8 Tips for Healthy Eating</a></li>
+                <li style='margin-bottom:0.3em;'>🍏 <a href='https://www.nhs.uk/live-well/eat-well/5-a-day/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>5 A Day</a></li>
+                <li style='margin-bottom:0.3em;'>🌾 <a href='https://www.nhs.uk/live-well/eat-well/how-to-get-more-fibre-into-your-diet/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>How to Get More Fibre</a></li>
+                <li style='margin-bottom:0.3em;'>🥗 <a href='https://www.nhs.uk/live-well/eat-well/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Food and Diet</a></li>
+                <li style='margin-bottom:0.3em;'>🔥 <a href='https://www.nhs.uk/live-well/eat-well/understanding-calories/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Understanding Calories</a></li>
+                <li style='margin-bottom:0.3em;'>🍽️ <a href='https://www.nhs.uk/live-well/eat-well/portion-size-guide/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Portion Sizes</a></li>
+                <li style='margin-bottom:0.3em;'>🍲 <a href='https://www.nhs.uk/healthier-families/recipes/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Healthy Recipes</a></li>
+                <li style='margin-bottom:0.3em;'>🏷️ <a href='https://www.nhs.uk/live-well/eat-well/food-labels/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Food Labels</a></li>
+                <li style='margin-bottom:0.3em;'>🥕 <a href='https://www.nhs.uk/live-well/eat-well/vegetarian-and-vegan-diets/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Vegetarian and Vegan Diets</a></li>
+                <li style='margin-bottom:0.3em;'>🥚 <a href='https://www.plymouthhospitals.nhs.uk/display-pil/pil-a-guide-to-increasing-your-protein-intake-8276/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Protein Intake</a></li>
+                <li style='margin-bottom:0.3em;'>🧴 <a href='https://www.nhs.uk/conditions/obesity/treatment/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Obesity Treatment</a></li>
+                <li style='margin-bottom:0.3em;'>💊 <a href='https://www.england.nhs.uk/ourwork/prevention/obesity/medicines-for-obesity/weight-management-injections/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Weight Management Injections</a></li>
             </ul>
-        </div>
-    """, unsafe_allow_html=True)
+            </div>
+        """, unsafe_allow_html=True)

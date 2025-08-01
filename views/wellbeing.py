@@ -88,8 +88,13 @@ def run_wellbeing_page():
     # --- Media Carousel (Image + Quote) ---
     st.markdown("<div class='cognizant-card'>", unsafe_allow_html=True)
     st.subheader("Inspiration & Positivity")
-    img_idx = st.slider("Browse images:", 0, len(IMAGES)-1, 0)
-    st.image(IMAGES[img_idx], use_column_width=True, caption="Stay inspired!")
+    # Image navigation with icon buttons 1,2,3...
+    img_idx = 0
+    cols = st.columns(len(IMAGES))
+    for i, col in enumerate(cols):
+        if col.button(f"{i+1}"):
+            img_idx = i
+    st.image(IMAGES[img_idx], use_container_width=True, caption="Stay inspired!")
     st.markdown(f"<div style='font-style:italic;color:#0050b3;font-size:1.07em;'>{random.choice(QUOTES)}</div>", unsafe_allow_html=True)
     close_card()
 
@@ -107,11 +112,36 @@ def run_wellbeing_page():
     close_card()
 
     # --- Community Poll / Event ---
+    import pandas as pd
+    import os
+    POLL_FILE = os.path.join("data", "community_poll_votes.csv")
+    poll_options = ["Exercise", "Talking to someone", "Healthy eating", "Sleep", "Nature", "Other"]
+
     st.markdown("<div class='cognizant-card'>", unsafe_allow_html=True)
     st.subheader("Community Poll")
-    poll = st.radio("What helps your well-being most?", ["Exercise", "Talking to someone", "Healthy eating", "Sleep", "Nature", "Other"])
+    poll = st.radio("What helps your well-being most?", poll_options)
+    vote_submitted = False
+
     if st.button("Submit Vote"):
-        st.success("Thank you for sharing! Every voice matters.")
+        # Append vote to file
+        try:
+            if not os.path.exists(POLL_FILE):
+                with open(POLL_FILE, "w") as f:
+                    f.write("option\n")
+            with open(POLL_FILE, "a") as f:
+                f.write(f"{poll}\n")
+            st.success("Thank you for sharing! Every voice matters.")
+            vote_submitted = True
+        except Exception as e:
+            st.error(f"Error saving your vote: {e}")
+
+    # Read and display poll results
+    if os.path.exists(POLL_FILE):
+        df_poll = pd.read_csv(POLL_FILE)
+        results = df_poll['option'].value_counts().reindex(poll_options, fill_value=0)
+        st.markdown("<hr style='margin:0.7em 0 0.7em 0;'>", unsafe_allow_html=True)
+        st.markdown("**Community Poll Results:**")
+        st.bar_chart(results)
     close_card()
 
     # --- NHS Resources Card (from health_metrics_ui for visual consistency) ---

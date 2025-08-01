@@ -31,7 +31,7 @@ def run_hospital_finder():
     inject_cognizant_css()
     cognizant_banner("🏥 Hospital Finder", "Find the best care with Team Hyperscaler Solutions")
     df = load_data()
-    left_col, right_col = st.columns([3, 1])
+    left_col, right_col = st.columns([5, 2])
 
     with left_col:
         search_hospitals_card()

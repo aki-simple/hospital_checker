@@ -54,13 +54,21 @@ def search_hospitals_card():
 def close_card():
     st.markdown("</div>", unsafe_allow_html=True)
 
-def nhs_resources_card(resource_url, specialty):
+def nhs_resources_card(resource_urls, specialty):
     st.markdown("""
-        <div class='cognizant-card' style='background:#f4faff; border:1.5px solid #0050b3;'>
-            <h4 style='color:#0050b3;'>NHS Resources</h4>
+        <div style='background:#fff; border:2.5px solid #005eb8; border-radius:16px; margin:0.7em 0 1.2em 0; box-shadow:0 2px 12px rgba(0,94,184,0.08); padding:0.5em 0.5em 0.2em 0.5em;'>
+        <h3 style='color:#005eb8; font-family:sans-serif; font-weight:800; margin:0 0 0.2em 0;'>NHS Resources</h3>
     """, unsafe_allow_html=True)
-    if resource_url:
-        st.markdown(f"[Learn more about {specialty}]({resource_url})")
+    if resource_urls and isinstance(resource_urls, list) and len(resource_urls) > 0:
+        st.markdown("<ul style='padding-left:1.3em;'>", unsafe_allow_html=True)
+        for url in resource_urls:
+            # Use the last part of the URL path as the link text
+            label = url.rstrip('/').split('/')[-1].replace('-', ' ').capitalize()
+            st.markdown(f"<li><a href='{url}' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;font-size:1.07em;'>{label}</a></li>", unsafe_allow_html=True)
+        st.markdown("</ul>", unsafe_allow_html=True)
+    elif resource_urls and isinstance(resource_urls, str):
+        st.markdown(f"<a href='{resource_urls}' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;font-size:1.07em;'>Learn more about {specialty}</a>", unsafe_allow_html=True)
     else:
-        st.markdown(f"We are working on identifying resource for {specialty}.")
+        st.markdown(f"<span style='font-size:1.07em;'>We are working on identifying resource for <b>{specialty}</b>.</span>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
