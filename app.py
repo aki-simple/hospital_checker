@@ -2,6 +2,7 @@ import streamlit as st
 from views.hospital_finder import run_hospital_finder
 from views.health_metrics import run_health_metrics
 from views.wellbeing import run_wellbeing_page
+from views.female_health import run_female_health_page
 
 st.set_page_config(page_title="Health Navigator", layout="centered")
 from views.navigation_ui import sidebar_nav

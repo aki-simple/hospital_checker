@@ -1,51 +1,40 @@
 import streamlit as st
 
+# NOTE: Do NOT inject global CSS or call st.set_page_config in any page-specific or UI helper file.
+# Only inject CSS for the navigation pane here, and only call st.set_page_config in app.py.
 def inject_navigation_css():
     st.markdown("""
     <style>
-    .nav-tile {
-        background: #87ceeb;
-        border-radius: 8px;
-        padding: 1.1em 1.2em;
-        margin-bottom: 0.6em;
-        font-size: 1.13em;
-        font-weight: 500;
-        color: #22577a;
-        border: none;
-        box-shadow: none;
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        width: 100%;
-        height: 48px;
-        line-height: 24px;
+    /* Extra robust selector for sidebar navigation: targets both old and new Streamlit sidebar structures */
+    aside[data-testid="stSidebar"] .nav-tile, section[data-testid="stSidebar"] .nav-tile, .stSidebar .nav-tile {
+        background: #87ceeb !important;
+        border-radius: 8px !important;
+        padding: 1.1em 1.2em !important;
+        margin-bottom: 0.6em !important;
+        font-size: 1.13em !important;
+        font-weight: 500 !important;
+        color: #22577a !important;
+        border: none !important;
+        box-shadow: none !important;
+        display: block !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        width: 100% !important;
+        height: 48px !important;
+        line-height: 24px !important;
     }
-    .sky-blue-tile {
-        background: #87ceeb;
-        color: #22577a;
+    aside[data-testid="stSidebar"] .sky-blue-tile, section[data-testid="stSidebar"] .sky-blue-tile, .stSidebar .sky-blue-tile {
+        background: #87ceeb !important;
+        color: #22577a !important;
     }
-    
-    .nav-tile:hover {
-        background: #d7e8f7;
-        color: #22577a;
-    }
-    .sidebar-nav-table {
-        background: #eaf3fa;
-        border: 1.5px solid #c2d3e8;
-        border-radius: 8px;
-        box-shadow: 0 1px 6px rgba(50, 90, 130, 0.04);
-        padding: 0;
-        margin: 0.6em 0 0.6em 0;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-    .sidebar-nav-container {
-        margin: 0;
-        padding: 0;
+    aside[data-testid="stSidebar"] .nav-tile:hover, section[data-testid="stSidebar"] .nav-tile:hover, .stSidebar .nav-tile:hover {
+        background: #d7e8f7 !important;
+        color: #22577a !important;
     }
     </style>
     """, unsafe_allow_html=True)
+
+
 
 def sidebar_nav(options, default=None):
     inject_navigation_css()
