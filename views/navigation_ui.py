@@ -5,8 +5,8 @@ import streamlit as st
 def inject_navigation_css():
     st.markdown("""
     <style>
-    /* Extra robust selector for sidebar navigation: targets both old and new Streamlit sidebar structures */
-    aside[data-testid="stSidebar"] .nav-tile, section[data-testid="stSidebar"] .nav-tile, .stSidebar .nav-tile {
+    /* Style Streamlit sidebar buttons as navigation tiles for robust coloring and structure */
+    section[data-testid="stSidebar"] div.stButton > button, aside[data-testid="stSidebar"] div.stButton > button, .stSidebar div.stButton > button {
         background: #87ceeb !important;
         border-radius: 8px !important;
         padding: 1.1em 1.2em !important;
@@ -22,12 +22,10 @@ def inject_navigation_css():
         width: 100% !important;
         height: 48px !important;
         line-height: 24px !important;
+        cursor: pointer !important;
+        transition: background 0.2s;
     }
-    aside[data-testid="stSidebar"] .sky-blue-tile, section[data-testid="stSidebar"] .sky-blue-tile, .stSidebar .sky-blue-tile {
-        background: #87ceeb !important;
-        color: #22577a !important;
-    }
-    aside[data-testid="stSidebar"] .nav-tile:hover, section[data-testid="stSidebar"] .nav-tile:hover, .stSidebar .nav-tile:hover {
+    section[data-testid="stSidebar"] div.stButton > button:hover, aside[data-testid="stSidebar"] div.stButton > button:hover, .stSidebar div.stButton > button:hover {
         background: #d7e8f7 !important;
         color: #22577a !important;
     }

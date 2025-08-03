@@ -144,12 +144,13 @@ def cycle_tracking_form():
 def female_health_nhs_resources_card():
     st.markdown("""
         <div style='background:#fff; border:2.5px solid #005eb8; border-radius:16px; margin:0.7em 0 1.2em 0; box-shadow:0 2px 12px rgba(0,94,184,0.08); padding:0.5em 0.5em 0.2em 0.5em;'>
-            <h3 style='color:#005eb8; font-family:sans-serif; font-weight:800; margin:0 0 0.2em 0;'>NHS Resources</h3>
-            <ul style='padding-left:2.5em; padding-bottom:1em; font-size:1em; font-family:sans-serif; color:#222;'>
-                <li style='margin-bottom:0.3em;'><a href='https://www.nhs.uk/conditions/periods/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Menstrual Cycle: NHS Guide</a></li>
-                <li style='margin-bottom:0.3em;'><a href='https://www.nhs.uk/live-well/exercise/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Exercise for Health</a></li>
-                <li style='margin-bottom:0.3em;'><a href='https://www.nhs.uk/live-well/eat-well/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Healthy Eating</a></li>
-            </ul>
+        """, unsafe_allow_html=True)
+    st.markdown("<h3 style='color:#005eb8; font-family:sans-serif; font-weight:800; margin:0 0 0.2em 0;'>NHS Resources</h3>", unsafe_allow_html=True)
+    st.markdown("""
+        <ul style='padding-left:2.5em; padding-bottom:1em; font-size:1em; font-family:sans-serif; color:#222;'>
+            <li style='margin-bottom:0.3em;'><a href='https://www.nhs.uk/conditions/periods/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Menstrual Cycle: NHS Guide</a></li>
+            <li style='margin-bottom:0.3em;'><a href='https://www.nhs.uk/live-well/exercise/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Exercise for Health</a></li>
+            <li style='margin-bottom:0.3em;'><a href='https://www.nhs.uk/live-well/eat-well/' target='_blank' style='color:#005eb8;font-weight:bold;text-decoration:underline;'>Healthy Eating</a></li>
+        </ul>
         </div>
     """, unsafe_allow_html=True)
-    
